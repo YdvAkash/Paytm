@@ -43,15 +43,16 @@ router.post("/signup", async (req, res) => {
 
     await Account.create({
         userId,
-        balance: 1 + Math.random() * 10000
-    })
-
+        balance: (1 + Math.random() * 10000).toFixed(2)  // Ensures two digits after the decimal point
+      });
+      
     const token = jwt.sign({
         userId
     }, JWT_SECRET);
 
     res.json({
         message: "User created successfully",
+        
         token: token
     })
 })
@@ -64,9 +65,12 @@ const signinBody = zod.object({
 
 router.post("/signin", async (req, res) => {
     const { success } = signinBody.safeParse(req.body)
+    // res.json({password: req.body.password, username: req.body.username})
     if (!success) {
         return res.status(411).json({
-            message: "Email already taken / Incorrect inputs"
+            username: req.body.username,
+            password: req.body.password,
+            message: "1. Email already taken / Incorrect inputs"
         })
     }
 
