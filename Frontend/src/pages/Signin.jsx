@@ -13,7 +13,7 @@ export const Signin = () => {
   const navigate = useNavigate();
 
   const handleSignIn = async () => {
-    console.log("Signing in with:", { username, password });  // Debug log to check data
+    console.log("Signing in with:", { username, password }); // Debug log to check data
 
     try {
       const response = await axios.post(
@@ -28,7 +28,7 @@ export const Signin = () => {
       console.log("Response data:", response.data); // Debugging the response
 
       localStorage.setItem("token", response.data.token);
-      
+
       const { firstName, lastName } = response.data; // Assuming response contains firstName, lastName
       navigate("/dashboard", {
         state: { username, firstName, lastName }, // Passing data through state
@@ -42,6 +42,7 @@ export const Signin = () => {
     <div className="bg-slate-300 h-screen flex justify-center">
       <div className="flex flex-col justify-center">
         <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4">
+      
           <Heading label={"Sign in"} />
           <SubHeading label={"Enter your credentials to access your account"} />
           <InputBox
