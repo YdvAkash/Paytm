@@ -11,6 +11,7 @@ export const Dashboard = () => {
   const { username, firstName, lastName } = location.state || {};
 
   const [balance, setBalance] = useState(null);
+  const usernameWithoutDomain = username.split('@')[0];
 
   // Fetch the balance on component mount
   useEffect(() => {
@@ -33,12 +34,31 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-teal-50 min-h-screen">
       <Appbar username={username} />
-      <div className="m-8">
-        {/* Pass the fetched balance to the Balance component */}
-        <Balance value={balance || "Loading..."} />
-        <Users />
+      
+        <div className="mb-8 text-center mt-12 text-5xl font-semibold text-teal-800">
+        Welcome, {usernameWithoutDomain.charAt(0).toUpperCase() + usernameWithoutDomain.slice(1)}!
+        </div>
+      <div className="max-w-6xl mx-auto p-6">
+        {/* Greeting Section */}
+
+        {/* Balance Section */}
+        <div className="flex justify-center mb-12">
+          <div className="bg-white p-8 border-2 rounded-lg shadow-lg w-full max-w-md">
+            <div className="text-center text-3xl font-semibold text-teal-900">
+              Your Balance
+            </div>
+            <div className="mt-4 text-center text-4xl font-bold text-teal-700">
+              ₹ {balance || "Loading..."}
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <Users />
+        </div>
+
+        {/* Users Section */}
       </div>
     </div>
   );
